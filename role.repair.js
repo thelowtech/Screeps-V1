@@ -1,6 +1,6 @@
-var roleHarvester = {
+var roleRepair = {
 
-    /** @param {Creep} creep **/
+    /** @param {Creep} creep  **/
     run: function(creep) {
 
         if(creep.memory.working && creep.store[RESOURCE_ENERGY] == 0){
@@ -19,29 +19,34 @@ var roleHarvester = {
             } else {
                 var sources = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
-                     return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
-                             structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+                     return (structure.hits < structure.hitsMax)
                     }
 
                 }); 
+                
                 if(sources.length) {
                     creep.memory.target = sources[0].id;    
                 }
             }
         }
+
         var target = Game.getObjectById(creep.memory.target);
-        if (!creep.memory.working) {
+
+        if (creep.memory.working) {            
+            if(creep.repair(target) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffaa00'}});
+                // console.log(creep.name + " Is Not in Range of the Spawn")
+            } 
+            if(creep.memory.target !== undefined && target.hits == target.hitsMax) {
+                creep.memory.target = undefined
+            }
+        } else {
             if(creep.harvest(target) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ffaa00'}});
                 // console.log(creep.name + " Is Not in Range of the Spawn")
-            }
-        } else {
-            if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-                // console.log(creep.name + " Is Not in Range of the Energy Source")
-                }
+            }   
         }
     }
 };
 
-module.exports = roleHarvester;
+module.exports = roleRepair;

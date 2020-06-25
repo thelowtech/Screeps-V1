@@ -1,6 +1,7 @@
-var roleHarvester = require('role.harvester');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
+var roleHarvest = require('role.harvest');
+var roleUpgrade = require('role.upgrade');
+var roleBuild = require('role.build');
+var roleRepair = require('role.repair');
 
 module.exports.loop = function() {
 
@@ -13,35 +14,43 @@ module.exports.loop = function() {
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
-        if(creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
+        if(creep.memory.role == 'harvest') {
+            roleHarvest.run(creep);
         }
-        if(creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
+        if(creep.memory.role == 'upgrade') {
+            roleUpgrade.run(creep);
         }
-        if(creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
+        if(creep.memory.role == 'build') {
+            roleBuild.run(creep);
+        }
+        if(creep.memory.role == 'repair') {
+            roleRepair.run(creep);
         }
     }
 
     var name = -1;
 
-    var minNumberOfHarvesters = 3;
-    var minNumberOfBuilders = 2;
-    var minNumberOfUpgraders = 2;
+    var minNumberOfHarvest = 3;
+    var minNumberOfBuild = 2;
+    var minNumberOfUpgrade = 2;
+    var minNumberOfRepair = 1;
 
-    var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester');
-    var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role == 'builder');
-    var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
+    var numberOfHarvest = _.sum(Game.creeps, (c) => c.memory.role == 'harvest');
+    var numberOfBuild = _.sum(Game.creeps, (c) => c.memory.role == 'build');
+    var numberOfUpgrade = _.sum(Game.creeps, (c) => c.memory.role == 'upgrade');
+    var numberOfRepair = _.sum(Game.creeps, (c) => c.memory.role == 'repair');
 
-    if(numberOfHarvesters < minNumberOfHarvesters) {
-        name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'harvester', working:true});
+    if(numberOfHarvest < minNumberOfHarvest) {
+        name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'harvest', working:true, target: undefined});
     }
-    else if(name == -1 && numberOfUpgraders < minNumberOfUpgraders) {
-        name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'upgrader', working:false});
+    else if(name == -1 && numberOfUpgrade < minNumberOfUpgrade) {
+        name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'upgrade', working:false, target: undefined});
     }
-    else if(name == -1 && numberOfBuilders < minNumberOfBuilders) {
-        name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'builder', working:false});
+    else if(name == -1 && numberOfBuild < minNumberOfBuild) {
+        name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'build', working:false, target: undefined});
+    }
+    else if(name == -1 && numberOfRepair < minNumberOfRepair) {
+        name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'repair', working:false, target: undefined});
     }
 
     if (!(name < 0)) {
