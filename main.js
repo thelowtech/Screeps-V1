@@ -2,6 +2,8 @@ var roleHarvest = require('role.harvest');
 var roleUpgrade = require('role.upgrade');
 var roleBuild = require('role.build');
 var roleRepair = require('role.repair');
+var creepFunctions = require('creep.functions');
+var roomPositionFunctions = require('roomPosition.functions');
 
 module.exports.loop = function() {
 

@@ -13,22 +13,18 @@ var roleRepair = {
         }
 
         if(creep.memory.target == undefined) {
-            if(creep.memory.working == false){
-                var sources = creep.room.find(FIND_SOURCES);
-                creep.memory.target = sources[0].id;
-            } else {
-                var sources = creep.room.find(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                     return (structure.hits < structure.hitsMax)
-                    }
-
-                }); 
-                
-                if(sources.length) {
-                    creep.memory.target = sources[0].id;    
+            var sources = creep.room.find(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return (structure.hits < structure.hitsMax)
                 }
+
+            }); 
+            
+            if(sources.length) {
+                creep.memory.target = sources[0].id;    
             }
         }
+        
 
         var target = Game.getObjectById(creep.memory.target);
 
@@ -41,10 +37,7 @@ var roleRepair = {
                 creep.memory.target = undefined
             }
         } else {
-            if(creep.harvest(target) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffaa00'}});
-                // console.log(creep.name + " Is Not in Range of the Spawn")
-            }   
+            creep.harvestEnergy();   
         }
     }
 };
