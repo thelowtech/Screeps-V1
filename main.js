@@ -41,7 +41,7 @@ module.exports.loop = function() {
     var numberOfRepair = _.sum(Game.creeps, (c) => c.memory.role == 'repair');
 
     if(numberOfHarvest < minNumberOfHarvest) {
-        name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'harvest', working:true, target: undefined});
+        name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'harvest', working:false, target: undefined});
     }
     else if(name == -1 && numberOfUpgrade < minNumberOfUpgrade) {
         name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'upgrade', working:false, target: undefined});

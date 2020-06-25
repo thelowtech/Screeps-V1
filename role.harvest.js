@@ -40,6 +40,9 @@ var roleHarvest = {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
                 // console.log(creep.name + " Is Not in Range of the Energy Source")
                 }
+            if (target.getFreeCapacity == 0) {
+                creep.memory.target = undefined;
+            }
         }
     }
 };
