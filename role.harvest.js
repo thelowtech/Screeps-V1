@@ -5,12 +5,17 @@ var roleHarvest = {
 
         if(creep.memory.working && creep.store[RESOURCE_ENERGY] == 0){
             creep.memory.working = false;
-            creep.memory.target = undefined; 
         }
         if(!creep.memory.working && creep.store.getFreeCapacity() == 0) {
             creep.memory.working = true;
-            creep.memory.target = undefined;
         }
+
+        if(creep.memory.target) {
+            var target = Game.getObjectById(creep.memory.target);
+            if(target.getFreeCapacity == 0) {
+                creep.memory.target = undefined;
+            }
+        }        
 
         if(creep.memory.target == undefined) {
             var sources = creep.room.find(FIND_STRUCTURES, {
@@ -21,22 +26,25 @@ var roleHarvest = {
 
             }); 
             if(sources.length) {
+                target = sources[0];
                 creep.memory.target = sources[0].id;    
+            } else {
+                return;
             }
         }
 
-        var target = Game.getObjectById(creep.memory.target);
-        if (!creep.memory.working) {
-            creep.harvestEnergy();
-        } else {
-            if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+        if (creep.memory.working) {
+              
+            if(creep.pos.isNearTo(target)) {
+                creep.transfer(target, RESOURCE_ENERGY)
+            } 
+            else {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-                // console.log(creep.name + " Is Not in Range of the Energy Source")
-                }
-            if (target != null && target.getFreeCapacity == 0) {
-                creep.memory.target = undefined;
             }
         }
+        else {
+                creep.harvestEnergy();
+        }    
     }
 };
 
