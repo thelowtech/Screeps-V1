@@ -12,7 +12,7 @@ var roleHarvest = {
 
         if(creep.memory.target) {
             var target = Game.getObjectById(creep.memory.target);
-            if(target.getFreeCapacity == 0) {
+            if(target.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {
                 creep.memory.target = undefined;
             }
         }        
