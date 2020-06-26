@@ -4,6 +4,7 @@ var roleBuild = require('role.build');
 var roleRepair = require('role.repair');
 var creepFunctions = require('creep.functions');
 var roomPositionFunctions = require('roomPosition.functions');
+var defenseTower = require('room.defense');
 
 module.exports.loop = function() {
 
@@ -15,6 +16,9 @@ module.exports.loop = function() {
             }
         }
     }
+
+    defenseTower.run();
+
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
         if(creep.memory.role == 'harvest') {
