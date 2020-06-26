@@ -1,4 +1,15 @@
+function getBody(segment, room) {
+    let body = [];
+    let segmentCost = _.sum(segment, s => BODYPART_COST[s]);
+    let energyAvailable = room.energyCapacityAvailable;
+    let maxSegments = Math.floor(energyAvailable / segmentCost);
 
+    _.times(maxSegments, function() {
+        _.forEach(segment, s => body.push(s));
+    });
+
+    return body;
+};
 var spawnController = {
 
     /** @param {Room} room */
@@ -16,24 +27,22 @@ var spawnController = {
         var name = -1;
 
         if(numberOfHarvest < minNumberOfHarvest) {
-            name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'harvest', working:false, target: undefined});
+            name=Game.spawns.Spawn1.createCreep(getBody([WORK, CARRY, MOVE], room),undefined, {role: 'harvest', working:false, target: undefined});
         }
         else if(name == -1 && numberOfUpgrade < minNumberOfUpgrade) {
-            name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'upgrade', working:false, target: undefined});
+            name=Game.spawns.Spawn1.createCreep(getBody([WORK, CARRY, MOVE], room),undefined, {role: 'upgrade', working:false, target: undefined});
         }
         else if(name == -1 && numberOfBuild < minNumberOfBuild && room.find(FIND_CONSTRUCTION_SITES).length > 0) {
-            name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'build', working:false, target: undefined});
+            name=Game.spawns.Spawn1.createCreep(getBody([WORK, CARRY, MOVE], room),undefined, {role: 'build', working:false, target: undefined});
         }
         else if(name == -1 && numberOfRepair < minNumberOfRepair) {
-            name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'repair', working:false, target: undefined});
+            name=Game.spawns.Spawn1.createCreep(getBody([WORK, CARRY, MOVE], room),undefined, {role: 'repair', working:false, target: undefined});
         }
     
         if (!(name < 0)) {
-            // console.log("Spawned new " + creep.memory.role + " creep: " + name);
+             // console.log("Spawned new " + creep.memory.role + " creep: " + name);
         }
-    }
-
-    
-}
+    }    
+};
 
 module.exports = spawnController;
