@@ -13,10 +13,10 @@ var roleUpgrade = {
         if(creep.memory.working) {
             if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#ffffff'}});
-            }
+            }          
         } 
         else {
-            creep.harvestEnergy();
+            creep.harvestContainer();
         }
     }
 };

@@ -1,7 +1,8 @@
 var roleHarvest = require('role.harvest');
 var roleUpgrade = require('role.upgrade');
-var roleBuild = require('role.build');
 var roleRepair = require('role.repair');
+var roleBuild = require('role.build');
+var roleMine = require('role.mine');
 
 var jobController = {
     run: function(room) {
@@ -18,6 +19,9 @@ var jobController = {
             }
             if(creep.memory.role == 'repair') {
                 roleRepair.run(creep);
+            }
+            if(creep.memory.role == 'mine') {
+                roleMine.run(creep);
             }
         }
     }

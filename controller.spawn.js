@@ -18,11 +18,13 @@ var spawnController = {
         let minNumberOfBuild = _.get(room.memory, ['cencus', 'build'], 1);
         let minNumberOfUpgrade = _.get(room.memory, ['cencus', 'upgrade'], 1);
         let minNumberOfRepair = _.get(room.memory, ['cencus', 'repair'], 1);
+        let minNumberOfMine = _.get(room.memory, ['cencus', 'mine'], 1);
 
         var numberOfHarvest = _.sum(Game.creeps, (creep) => creep.memory.role == 'harvest');
         var numberOfBuild = _.sum(Game.creeps, (creep) => creep.memory.role == 'build');
         var numberOfUpgrade = _.sum(Game.creeps, (creep) => creep.memory.role == 'upgrade');
         var numberOfRepair = _.sum(Game.creeps, (creep) => creep.memory.role == 'repair');
+        var numberOfMine = _.sum(Game.creeps, (creep) => creep.memory.role == 'mine');
 
         var name = -1;
 
@@ -37,6 +39,9 @@ var spawnController = {
         }
         else if(name == -1 && numberOfRepair < minNumberOfRepair) {
             name=Game.spawns.Spawn1.createCreep(getBody([WORK, CARRY, MOVE], room),undefined, {role: 'repair', working:false, target: undefined});
+        }
+        else if(name == -1 && numberOfMine < minNumberOfMine) {
+            name=Game.spawns.Spawn1.createCreep(getBody([WORK, CARRY, MOVE], room),undefined, {role: 'mine', working:false, target: undefined});
         }
     
         if (!(name < 0)) {
