@@ -40,12 +40,11 @@ Creep.prototype.harvestEnergy = function harvestEnergy() {
 Creep.prototype.findContainerSource = function findContainerSource () {
     let structures = this.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
-            return structure.structureType == STRUCTURE_CONTAINER &&
-                   structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0;
-        }
-    });
-    if (structures) {
-        console.log(structures[0].id);
+            return (structure.structureType == STRUCTURE_CONTAINER &&
+                    structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
+        }});
+    if (structures.length > 0) {
+        console.log(structures);
         this.memory.source = structures[0].id;
         return structures[0];
     }

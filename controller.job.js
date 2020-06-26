@@ -1,3 +1,4 @@
+var roleTransport = require('role.transport');
 var roleHarvest = require('role.harvest');
 var roleUpgrade = require('role.upgrade');
 var roleRepair = require('role.repair');
@@ -22,6 +23,9 @@ var jobController = {
             }
             if(creep.memory.role == 'mine') {
                 roleMine.run(creep);
+            }
+            if(creep.memory.role == 'transport') {
+                roleTransport.run(creep);
             }
         }
     }
