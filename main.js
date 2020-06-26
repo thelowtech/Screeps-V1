@@ -38,7 +38,7 @@ module.exports.loop = function() {
             else if(name == -1 && numberOfUpgrade < minNumberOfUpgrade) {
                 name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'upgrade', working:false, target: undefined});
             }
-            else if(name == -1 && numberOfBuild < minNumberOfBuild && creep.room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+            else if(name == -1 && numberOfBuild < minNumberOfBuild && room.find(FIND_CONSTRUCTION_SITES).length > 0) {
                 name=Game.spawns.Spawn1.createCreep([WORK,CARRY,MOVE],undefined, {role: 'build', working:false, target: undefined});
             }
             else if(name == -1 && numberOfRepair < minNumberOfRepair) {
