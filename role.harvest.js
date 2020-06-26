@@ -8,6 +8,7 @@ var roleHarvest = {
         }
         if(!creep.memory.working && creep.store.getFreeCapacity() == 0) {
             creep.memory.working = true;
+            creep.memory.target = undefined;
         }
 
         if(creep.memory.target) {
