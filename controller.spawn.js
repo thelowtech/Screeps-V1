@@ -15,12 +15,12 @@ var spawnController = {
     /** @param {Room} room */
     run: function(room){
         
-        let minNumberOfTransport = _.get(room.memory, ['cencus', 'transport'], 1);
-        let minNumberOfHarvest = _.get(room.memory, ['cencus', 'harvest'], 1);
-        let minNumberOfUpgrade = _.get(room.memory, ['cencus', 'upgrade'], 1);
-        let minNumberOfRepair = _.get(room.memory, ['cencus', 'repair'], 1);
-        let minNumberOfBuild = _.get(room.memory, ['cencus', 'build'], 1);
-        let minNumberOfMine = _.get(room.memory, ['cencus', 'mine'], 1);
+        let minNumberOfTransport = _.get(room.memory, ['census', 'transport'], 1);
+        let minNumberOfHarvest = _.get(room.memory, ['census', 'harvest'], 1);
+        let minNumberOfUpgrade = _.get(room.memory, ['census', 'upgrade'], 1);
+        let minNumberOfRepair = _.get(room.memory, ['census', 'repair'], 1);
+        let minNumberOfBuild = _.get(room.memory, ['census', 'build'], 1);
+        let minNumberOfMine = _.get(room.memory, ['census', 'mine'], 1);
         
         var numberOfTransport = _.sum(Game.creeps, (creep) => creep.memory.role == 'transport');
         var numberOfHarvest = _.sum(Game.creeps, (creep) => creep.memory.role == 'harvest');

@@ -44,7 +44,7 @@ Creep.prototype.findContainerSource = function findContainerSource () {
                     structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
         }});
     if (structures.length) {
-        console.log(structures);
+        // console.log(structures);
         this.memory.source = structures[0].id;
         return structures[0];
     }

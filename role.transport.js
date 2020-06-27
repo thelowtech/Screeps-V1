@@ -41,6 +41,7 @@ var roleTransport = {
                     }
                 });
             }
+            
             if(sources.length) {
                 target = sources[0];
                 creep.memory.target = sources[0].id;    
