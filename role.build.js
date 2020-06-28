@@ -24,7 +24,6 @@ var roleBuild = {
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
             if(targets.length) {
                 target = creep.pos.findClosestByRange(targets);
-                console.log(target)
                 creep.memory.target = target.id;
             } else {
                 // TODO:  make creep drop off energy when out of work
