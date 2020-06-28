@@ -26,6 +26,9 @@ var roleBuild = {
                 target = creep.pos.findClosestByRange(targets);
                 console.log(target)
                 creep.memory.target = target.id;
+            } else {
+                // TODO:  make creep drop off energy when out of work
+                creep.dropOffEnergy();
             }
         }
 
@@ -38,7 +41,9 @@ var roleBuild = {
             }
         }
         else {
-            creep.collectEnergy();
+            if(creep.memory.target) {
+                creep.collectEnergy();  
+            }
         }
     }
 };

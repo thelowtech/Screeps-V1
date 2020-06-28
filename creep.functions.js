@@ -117,3 +117,35 @@ Creep.prototype.harvestStorage = function harvestStorage() {
         }
     }
 };
+
+Creep.prototype.dropOffEnergy = function dropOffEnergy() {
+
+    // Do we have any extra energy
+    if(!this.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
+        // No Energy Lets Bail Out
+        return;
+    }
+
+    switch(this.room.memory.config.storage) {
+        case "none":
+            // No where to drop off
+            break;
+        case "container":
+            // drop in a container
+            target = this.findContainerSource()
+            break;
+        case "storage":
+            // drop into a storage container
+            target = this.findStorageSource()
+            break;
+    };
+
+    if(target) {
+        if(this.pos.isNearTo(target)) {
+            this.transfer(target, RESOURCE_ENERGY);
+        } else {
+            this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+        }
+    }
+
+}
