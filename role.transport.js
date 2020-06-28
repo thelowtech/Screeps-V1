@@ -43,8 +43,8 @@ var roleTransport = {
             }
             
             if(sources.length) {
-                target = sources[0];
-                creep.memory.target = sources[0].id;    
+                target = creep.pos.findClosestByRange(sources);
+                creep.memory.target = target.id;    
             } else {
                 return;
             }
