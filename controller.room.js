@@ -6,7 +6,7 @@ var roomController = {
 
     /** @param {Room} room **/
     run: function(room) {
-        if(Game.time % 10) {
+        if(Game.time % 100) {
             memoryController.run(room);
         }
         spawnController.run(room);

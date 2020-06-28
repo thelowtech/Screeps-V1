@@ -2,7 +2,7 @@ var memoryController = {
 
     /** @param {Room} room */
     run: function(room) {
-        // init room
+        // init room memory
         if(!room.memory) {
             console.log('No Memory');
         } 
@@ -36,7 +36,7 @@ var memoryController = {
             room.memory.census.transport = 0;
         }
 
-        //Config Setup
+        // Config Setup
         if(room.memory.config == undefined) {
             room.memory.config = {};
         }
@@ -44,7 +44,28 @@ var memoryController = {
         if(room.memory.config.storage == undefined) {
             room.memory.config.storage = 'none';
         }
+
+        // Check for storage type
+        checkStorage(room);
     }
 };
+
+function checkStorage(room) {
+    let storage = room.find(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return (structure.structureType == STRUCTURE_STORAGE)}})
+    if(storage.length) {
+        room.memory.config.storage = 'storage'
+        return;
+    }
+    let containers = room.find(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return (structure.structureType == STRUCTURE_CONTAINER)}})
+    if(containers.length) {
+        room.memory.config.storage = 'container'
+        return;
+    }
+    room.memory.config = 'none';
+}
 
 module.exports = memoryController;
