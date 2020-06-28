@@ -18,7 +18,7 @@ var roleWall = {
         }
 
         if(!creep.memory.target) {
-            for(i = 0.0001; i <= creep.room.memory.config.wallMaxStep; i = i += 0.0001) {
+            for(i = 0.0001; i <= creep.room.memory.config.wallMaxStep; i += 0.0001) {
                 var sources = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.hits < structure.hitsMax * i && 
