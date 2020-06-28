@@ -3,6 +3,7 @@ var roleBuild = {
     /** @param {Creep} creep  **/
     run: function(creep) {
 
+        // Set And Check current working state
         if(creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.working = false;
         }
@@ -10,12 +11,30 @@ var roleBuild = {
             creep.memory.working = true;
         }
 
-        if(creep.memory.working) {
+        // If we have a target set make sure it is still a valid target
+        if(creep.memory.target) {
+            var target = Game.getObjectById(creep.memory.target)
+            if(!target) {
+                delete creep.memory.target;
+            }
+        }
+
+        // if there is no target set lets find a construction site to build
+        if(!creep.memory.target) {
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
             if(targets.length) {
-                if(creep.build(targets[0]) == ERR_NOT_IN_RANGE){
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
-                }
+                target = creep.pos.findClosestByRange(targets);
+                console.log(target)
+                creep.memory.target = target.id;
+            }
+        }
+
+        // Let so some work
+        if(creep.memory.working) {
+            if(creep.pos.isNearTo(target)) {
+                creep.build(target);
+            } else {
+                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
         else {
