@@ -35,9 +35,24 @@ Creep.prototype.harvestEnergy = function harvestEnergy() {
             this.moveTo(storedSource), {visualizePathStyle: {stroke: '#ffaa00'}};
         }
     }
-}
+};
 
-Creep.prototype.findContainerSource = function findContainerSource () {
+Creep.prototype.collectEnergy = function collectEnergy() {
+    switch(this.room.memory.config.storage) {
+        case "none":
+            this.harvestEnergy();
+            break;
+        case "container":
+            this.harvestContainer();
+            break;
+        case "storage":
+            this.harvestStorage();
+            break;
+    };
+};
+
+
+Creep.prototype.findContainerSource = function findContainerSource() {
     let structures = this.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
             return (structure.structureType == STRUCTURE_CONTAINER &&
@@ -58,6 +73,37 @@ Creep.prototype.harvestContainer = function harvestContainer() {
     }
     if (storedSource) {
         if(this.pos.isNearTo(storedSource)) {
+            if(this.withdraw(storedSource, RESOURCE_ENERGY) == -6) {
+                delete this.memory.source;
+            };
+            
+        } else {
+            this.moveTo(storedSource), {visualizePathStyle: {stroke: '#ffaa00'}};
+        }
+    }
+};
+
+Creep.prototype.findStorageSource = function findStorageSource() {
+    let structures = this.room.find(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return (structure.structureType == STRUCTURE_STORAGE &&
+                    structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
+        }});
+    if (structures.length) {
+        // console.log(structures);
+        this.memory.source = structures[0].id;
+        return structures[0];
+    }
+};
+
+Creep.prototype.harvestStorage = function harvestStorage() {
+    let storedSource = Game.getObjectById(this.memory.source);
+    if(!storedSource || !this.pos.isNearTo(storedSource)) {
+        delete this.memory.source;
+        storedSource = this.findStorageSource();
+    }
+    if (storedSource.length) {
+        if(this.pos.isNearTo(storedSource)) {
             this.withdraw(storedSource, RESOURCE_ENERGY);
             if(storedSource.store.getUsedCapacity(RESOURCE_ENERGY)) {
                 delete this.memory.source
@@ -66,4 +112,4 @@ Creep.prototype.harvestContainer = function harvestContainer() {
             this.moveTo(storedSource), {visualizePathStyle: {stroke: '#ffaa00'}};
         }
     }
-}
+};

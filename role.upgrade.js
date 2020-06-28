@@ -16,7 +16,8 @@ var roleUpgrade = {
             }          
         } 
         else {
-            creep.harvestContainer();
+            // creep.harvestContainer();
+            creep.collectEnergy();
         }
     }
 };

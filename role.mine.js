@@ -19,20 +19,18 @@ var roleMine = {
         }        
 
         if(creep.memory.target == undefined) {
-            var sources = creep.room.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return structure.structureType == STRUCTURE_CONTAINER &&
-                            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-                }
-
-            }); 
-            if(sources.length) {
-                target = sources[0];
-                creep.memory.target = sources[0].id;    
-            } else {
-                return;
-            }
-        }
+            switch(creep.room.memory.config.storage) {
+                case "none":
+                    target = 0;
+                    break;
+                case "container":
+                    target = getContainer(creep);
+                    break;
+                case "storage":
+                    target = getStorage(creep);
+                    break;
+            };
+        };
 
         if (creep.memory.working) {
               
@@ -46,6 +44,40 @@ var roleMine = {
         else {
                 creep.harvestEnergy();
         }    
+    }
+};
+
+function getContainer(creep) {
+    var sources = creep.room.find(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType == STRUCTURE_CONTAINER &&
+                    structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+        }
+
+    }); 
+    if(sources.length) {
+        target = sources[0];
+        creep.memory.target = sources[0].id;
+        return target;
+    } else {
+        return 0;
+    }
+};
+
+function getStorage(creep) {
+    var sources = creep.room.find(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType == STRUCTURE_STORAGE &&
+                    structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+        }
+
+    }); 
+    if(sources.length) {
+        target = sources[0];
+        creep.memory.target = sources[0].id;
+        return target;
+    } else {
+        return 0;
     }
 };
 

@@ -19,7 +19,8 @@ var roleBuild = {
             }
         }
         else {
-            creep.harvestEnergy();
+            // creep.collectEnergy();
+            creep.harvestContainer();
         }
     }
 };
