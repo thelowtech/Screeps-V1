@@ -16,6 +16,8 @@ Creep.prototype.findEnergySource = function findEnergySource() {
             this.memory.source = source.id;
             return source;
         }
+    } else {
+        return 0;
     }
 };
 
@@ -33,7 +35,9 @@ Creep.prototype.harvestEnergy = function harvestEnergy() {
             }
         } else {
             this.moveTo(storedSource), {visualizePathStyle: {stroke: '#ffaa00'}};
-        }
+        } 
+    } else {
+        this.memory.working = !this.memory.working;
     }
 };
 
