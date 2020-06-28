@@ -31,7 +31,6 @@ var roleRepair = {
         if (creep.memory.working) {            
             if(creep.repair(target) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ffaa00'}});
-                // console.log(creep.name + " Is Not in Range of the Spawn")
             } 
             if(creep.memory.target !== undefined && target.hits == target.hitsMax) {
                 creep.memory.target = undefined

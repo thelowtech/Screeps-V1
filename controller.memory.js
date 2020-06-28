@@ -35,6 +35,9 @@ var memoryController = {
         if(room.memory.census.transport == undefined) {
             room.memory.census.transport = 0;
         }
+        if(room.memory.census.wall == undefined) {
+            room.memory.census.wall = 0;
+        }
 
         // Config Setup
         if(room.memory.config == undefined) {
@@ -43,6 +46,14 @@ var memoryController = {
 
         if(room.memory.config.storage == undefined) {
             room.memory.config.storage = 'none';
+        }
+
+        if(room.memory.config.wallMaxStep == undefined) {
+            room.memory.config.wallMaxStep = 0.0001;
+        }        
+
+        if(room.memory.config.wallStep == undefined) {
+            room.memory.config.wallStep = 0.0001;
         }
 
         // Check for storage type

@@ -4,6 +4,7 @@ var roleUpgrade = require('role.upgrade');
 var roleRepair = require('role.repair');
 var roleBuild = require('role.build');
 var roleMine = require('role.mine');
+var roleWall = require('role.wall');
 
 var jobController = {
     run: function(room) {
@@ -26,6 +27,9 @@ var jobController = {
             }
             if(creep.memory.role == 'transport') {
                 roleTransport.run(creep);
+            }
+            if(creep.memory.role == 'wall') {
+                roleWall.run(creep);
             }
         }
     }
