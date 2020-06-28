@@ -16,11 +16,12 @@ module.exports.loop = function() {
 
     _.forEach(Game.rooms, function(room) {
         if(room && room.controller && room.controller.my) {
-            roomController.run(room);            
+            roomController.run(room);    
+            defenseTower.run(room);        
         }
     })
 
-    defenseTower.run();
+    
 
     
 }

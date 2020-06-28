@@ -39,7 +39,6 @@ var roleWall = {
         if (creep.memory.working) {            
             if(creep.pos.isNearTo(target) ) {
                 creep.repair(target);
-                console.log('Hits ' + target.hits +' of ' + target.hitsMax * creep.room.memory.config.wallStep)
                 if(target.hits >= target.hitsMax * creep.room.memory.config.wallStep){
                     delete creep.memory.target;
                 }
