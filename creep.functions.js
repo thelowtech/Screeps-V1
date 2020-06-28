@@ -102,7 +102,7 @@ Creep.prototype.harvestStorage = function harvestStorage() {
         delete this.memory.source;
         storedSource = this.findStorageSource();
     }
-    if (storedSource.length) {
+    if (storedSource) {
         if(this.pos.isNearTo(storedSource)) {
             this.withdraw(storedSource, RESOURCE_ENERGY);
             if(storedSource.store.getUsedCapacity(RESOURCE_ENERGY)) {

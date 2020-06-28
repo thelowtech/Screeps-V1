@@ -60,7 +60,7 @@ var roleTransport = {
             }
         }
         else {
-                creep.harvestContainer();
+                creep.collectEnergy();
         }    
     }
 };
