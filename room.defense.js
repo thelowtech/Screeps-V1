@@ -5,7 +5,8 @@ var defenseTower = {
         var tower = Game.getObjectById('5ef5dffbcbe5c406c8777aa2');
         if(tower) {
             var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (structure) => structure.hits < structure.hitsMax
+                filter: (structure) => (structure.hits < structure.hitsMax &&
+                                       structure.structureType !== STRUCTURE_WALL)
             });
             if(closestDamagedStructure) {
                 tower.repair(closestDamagedStructure);
