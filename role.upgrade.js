@@ -12,7 +12,7 @@ var roleUpgrade = {
         }
 
         // Do work
-        if (creep.memory.working) {        
+        if (creep.memory.working) {    
             if(creep.pos.isNearTo(creep.room.controller)) {
                 creep.upgradeController(creep.room.controller);
             } else {

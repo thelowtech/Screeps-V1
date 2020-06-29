@@ -1,36 +1,25 @@
-var roleTransport = require('role.transport');
-var roleHarvest = require('role.harvest');
-var roleUpgrade = require('role.upgrade');
-var roleRepair = require('role.repair');
-var roleBuild = require('role.build');
-var roleMine = require('role.mine');
-var roleWall = require('role.wall');
+global.ROLES = {
+    transport: require('role.transport'),
+    harvest: require('role.harvest'),
+    upgrade: require('role.upgrade'),
+    repair: require('role.repair'),
+    build: require('role.build'),
+    mine: require('role.mine'),
+    wall: require('role.wall'),
+}
 
 var jobController = {
     run: function(room) {
         // Grab a creep and run its Job
-        for(var name in Game.creeps) {
-            var creep = Game.creeps[name];
-            if(creep.memory.role == 'harvest') {
-                roleHarvest.run(creep);
-            }
-            if(creep.memory.role == 'upgrade') {
-                roleUpgrade.run(creep);
-            }
-            if(creep.memory.role == 'build') {
-                roleBuild.run(creep);
-            }
-            if(creep.memory.role == 'repair') {
-                roleRepair.run(creep);
-            }
-            if(creep.memory.role == 'mine') {
-                roleMine.run(creep);
-            }
-            if(creep.memory.role == 'transport') {
-                roleTransport.run(creep);
-            }
-            if(creep.memory.role == 'wall') {
-                roleWall.run(creep);
+        console.log['jobController']
+        for(var name in Memory.creeps) {
+            let creep = Game.creeps[name];
+            console.log[name]
+            if(!creep) {
+                console.log('Clearing non-existing creep memory:', name);
+                delete Memory.creeps[name];
+            } else {
+                ROLES[creep.memory.role].run(creep);
             }
         }
     }
