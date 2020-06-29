@@ -48,13 +48,9 @@ var memoryController = {
             room.memory.config.storage = 'none';
         }
 
-        if(room.memory.config.wallMaxStep == undefined) {
-            room.memory.config.wallMaxStep = 0.0001;
-        }        
-
-        if(room.memory.config.wallStep == undefined) {
-            room.memory.config.wallStep = 0.0001;
-        }
+        if(room.memory.config.wallTargetSize == undefined) {
+            room.memory.config.wallTargetSize = 0.0001;
+        } 
 
         // Check for storage type
         checkStorage(room);
