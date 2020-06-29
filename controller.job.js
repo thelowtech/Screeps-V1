@@ -8,6 +8,7 @@ var roleWall = require('role.wall');
 
 var jobController = {
     run: function(room) {
+        // Grab a creep and run its Job
         for(var name in Game.creeps) {
             var creep = Game.creeps[name];
             if(creep.memory.role == 'harvest') {

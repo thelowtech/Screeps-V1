@@ -6,8 +6,9 @@ var defenseTower = require('room.defense');
 var roomController = {
 
     /** @param {Room} room **/
+    // Get each room and run through each controller
     run: function(room) {
-        if(Game.time % 100) {
+        if(Game.time % 100 == 0) {
             memoryController.run(room);
         }
         spawnController.run(room);

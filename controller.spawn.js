@@ -15,6 +15,7 @@ var spawnController = {
     /** @param {Room} room */
     run: function(room){
         
+        // Get minimum number of creeps per job
         let minNumberOfTransport = _.get(room.memory, ['census', 'transport'], 1);
         let minNumberOfHarvest = _.get(room.memory, ['census', 'harvest'], 1);
         let minNumberOfUpgrade = _.get(room.memory, ['census', 'upgrade'], 1);
@@ -23,6 +24,7 @@ var spawnController = {
         let minNumberOfMine = _.get(room.memory, ['census', 'mine'], 1);
         let minNumberOfWall = _.get(room.memory, ['census', 'wall'], 1);
         
+        // Check how many creeps of each role we have
         var numberOfTransport = _.sum(Game.creeps, (creep) => creep.memory.role == 'transport');
         var numberOfHarvest = _.sum(Game.creeps, (creep) => creep.memory.role == 'harvest');
         var numberOfUpgrade = _.sum(Game.creeps, (creep) => creep.memory.role == 'upgrade');
@@ -31,6 +33,7 @@ var spawnController = {
         var numberOfMine = _.sum(Game.creeps, (creep) => creep.memory.role == 'mine');
         var numberOfWall = _.sum(Game.creeps, (creep) => creep.memory.role == 'wall');
 
+        // Check to see if we need more creeps of each job
         var name = -1;
         if (!numberOfHarvest && (!numberOfMine || !numberOfTransport)) {
             name=Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE],undefined, {role: 'harvest', working:false, target: undefined});

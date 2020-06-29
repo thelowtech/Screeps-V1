@@ -4,7 +4,8 @@ var roomController = require('controller.room');
 
 module.exports.loop = function() {
 
-    if(Game.time % 20) {
+    // Check and remove dead creeps from memory
+    if(Game.time % 20 == 0) {
         for(var name in Memory.creeps) {
             if(!Game.creeps[name]) {
                 delete Memory.creeps[name];
@@ -13,6 +14,7 @@ module.exports.loop = function() {
         }
     }
 
+    // check and run each owned room
     _.forEach(Game.rooms, function(room) {
         if(room && room.controller && room.controller.my) {
             roomController.run(room);    

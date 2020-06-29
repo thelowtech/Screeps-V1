@@ -57,6 +57,7 @@ var memoryController = {
     }
 };
 
+// Check to see if we are direct, containers, or storage
 function checkStorage(room) {
     let storage = room.find(FIND_STRUCTURES, {
         filter: (structure) => {

@@ -3,6 +3,7 @@ var roleMine = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
+        // check state and update
         if(creep.memory.working && creep.store[RESOURCE_ENERGY] == 0){
             creep.memory.working = false;
         }
@@ -11,6 +12,7 @@ var roleMine = {
             creep.memory.target = undefined;
         }
 
+        // check for a valid memory target
         if(creep.memory.target) {
             var target = Game.getObjectById(creep.memory.target);
             if(target.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {
@@ -18,6 +20,7 @@ var roleMine = {
             }
         }        
 
+        // if no memory target get one check if we need to deposit into a container or storage
         if(creep.memory.target == undefined) {
             switch(creep.room.memory.config.storage) {
                 case "none":
@@ -32,6 +35,7 @@ var roleMine = {
             };
         };
 
+        // Do Work
         if (creep.memory.working) {
               
             if(creep.pos.isNearTo(target)) {
@@ -47,6 +51,8 @@ var roleMine = {
     }
 };
 
+
+// Find a vaid container
 function getContainer(creep) {
     var sources = creep.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
@@ -64,6 +70,7 @@ function getContainer(creep) {
     }
 };
 
+// find a vaid storage
 function getStorage(creep) {
     var sources = creep.room.find(FIND_STRUCTURES, {
         filter: (structure) => {

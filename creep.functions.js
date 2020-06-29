@@ -1,3 +1,22 @@
+// Prototypes added to the creep object
+
+// Used to let roles know where to pickup energy from
+// direct from source, containers, or storage
+Creep.prototype.collectEnergy = function collectEnergy() {
+    switch(this.room.memory.config.storage) {
+        case "none":
+            this.harvestEnergy();
+            break;
+        case "container":
+            this.harvestContainer();
+            break;
+        case "storage":
+            this.harvestStorage();
+            break;
+    };
+};
+
+// Find all the energy sources in a room and get all the empty walkable spaces around it
 Creep.prototype.findEnergySource = function findEnergySource() {
     let sources = this.room.find(FIND_SOURCES, {
         filter: (source) => {
@@ -7,11 +26,9 @@ Creep.prototype.findEnergySource = function findEnergySource() {
     });
     if(sources.length){
         let source = _.find(sources, function(s){
-            // console.log(s.pos, s.pos.getOpenPositions())
             return s.pos.getOpenPositions().length > 0;
         });
 
-        // console.log(sources.length, Source);
         if(source) {
             this.memory.source = source.id;
             return source;
@@ -21,6 +38,7 @@ Creep.prototype.findEnergySource = function findEnergySource() {
     }
 };
 
+// Harvest Energy Directly from the source
 Creep.prototype.harvestEnergy = function harvestEnergy() {
     let storedSource = Game.getObjectById(this.memory.source);
     if(!storedSource || (!storedSource.pos.getOpenPositions().length && !this.pos.isNearTo(storedSource))) {
@@ -41,21 +59,7 @@ Creep.prototype.harvestEnergy = function harvestEnergy() {
     }
 };
 
-Creep.prototype.collectEnergy = function collectEnergy() {
-    switch(this.room.memory.config.storage) {
-        case "none":
-            this.harvestEnergy();
-            break;
-        case "container":
-            this.harvestContainer();
-            break;
-        case "storage":
-            this.harvestStorage();
-            break;
-    };
-};
-
-
+// Find and return a valid container
 Creep.prototype.findContainerSource = function findContainerSource() {
     let structures = this.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
@@ -63,12 +67,12 @@ Creep.prototype.findContainerSource = function findContainerSource() {
                     structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
         }});
     if (structures.length) {
-        // console.log(structures);
         this.memory.source = structures[0].id;
         return structures[0];
     }
 };
 
+// get energy from a container
 Creep.prototype.harvestContainer = function harvestContainer() {
     let storedSource = Game.getObjectById(this.memory.source);
     if(!storedSource || !this.pos.isNearTo(storedSource)) {
@@ -87,6 +91,7 @@ Creep.prototype.harvestContainer = function harvestContainer() {
     }
 };
 
+// find and return a valid storage
 Creep.prototype.findStorageSource = function findStorageSource() {
     let structures = this.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
@@ -100,6 +105,7 @@ Creep.prototype.findStorageSource = function findStorageSource() {
     }
 };
 
+// get energy from storage
 Creep.prototype.harvestStorage = function harvestStorage() {
     let storedSource = Game.getObjectById(this.memory.source);
     if(!storedSource || !this.pos.isNearTo(storedSource)) {
@@ -118,6 +124,8 @@ Creep.prototype.harvestStorage = function harvestStorage() {
     }
 };
 
+
+// Used to dropoff excess energy a creep has when no more work is available
 Creep.prototype.dropOffEnergy = function dropOffEnergy() {
 
     // Do we have any extra energy
