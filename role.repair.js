@@ -34,6 +34,8 @@ var roleRepair = {
             
             if(sources.length) {
                 creep.memory.target = sources[0].id;    
+            } else {
+                creep.dropOffEnergy();
             }
         }
         
