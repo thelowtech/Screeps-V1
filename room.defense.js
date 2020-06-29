@@ -13,10 +13,11 @@ var defenseTower = {
         _,forEach(towers, function(tower) {
             if(tower) {
                 var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-                    filter: (structure) => (structure.hits < structure.hitsMax && 
+                    filter: (structure) => ((structure.hits < structure.hitsMax && 
                                             structure.structureType !== STRUCTURE_WALL && 
+                                            structure.structureType !== STRUCTURE_RAMPART) || 
                                             (structure.structureType == STRUCTURE_RAMPART &&
-                                            structure.hits < structure.hitsMax * room.memory.config.wallMaxStep))
+                                            structure.hits < structure.hitsMax * room.memory.config.wallTargetSize))
                 });
                 if(closestDamagedStructure) {
                     tower.repair(closestDamagedStructure);
