@@ -36,7 +36,7 @@ var roleRepair = {
                 creep.memory.target = undefined
             }
         } else {
-            creep.harvestEnergy();   
+            creep.collectEnergy();   
         }
     }
 };
