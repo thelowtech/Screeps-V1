@@ -3,7 +3,7 @@
 // Used to let roles know where to pickup energy from
 // direct from source, containers, or storage
 Creep.prototype.collectEnergy = function collectEnergy() {
-    switch(this.room.memory.config.storage) {
+    switch (this.room.memory.config.storage) {
         case "none":
             this.harvestEnergy();
             break;
@@ -24,12 +24,12 @@ Creep.prototype.findEnergySource = function findEnergySource() {
         }
 
     });
-    if(sources.length){
-        let source = _.find(sources, function(s){
+    if (sources.length) {
+        let source = _.find(sources, function(s) {
             return s.pos.getOpenPositions().length > 0;
         });
 
-        if(source) {
+        if (source) {
             this.memory.source = source.id;
             return source;
         }
@@ -41,19 +41,23 @@ Creep.prototype.findEnergySource = function findEnergySource() {
 // Harvest Energy Directly from the source
 Creep.prototype.harvestEnergy = function harvestEnergy() {
     let storedSource = Game.getObjectById(this.memory.source);
-    if(!storedSource || (!storedSource.pos.getOpenPositions().length && !this.pos.isNearTo(storedSource))) {
+    if (!storedSource || (!storedSource.pos.getOpenPositions().length && !this.pos.isNearTo(storedSource))) {
         delete this.memory.source;
         storedSource = this.findEnergySource();
     }
     if (storedSource) {
-        if(this.pos.isNearTo(storedSource)) {
+        if (this.pos.isNearTo(storedSource)) {
             this.harvest(storedSource);
-            if(!storedSource.energy) {
+            if (!storedSource.energy) {
                 delete this.memory.source
             }
         } else {
-            this.moveTo(storedSource), {visualizePathStyle: {stroke: '#ffaa00'}};
-        } 
+            this.moveTo(storedSource), {
+                visualizePathStyle: {
+                    stroke: '#ffaa00'
+                }
+            };
+        }
     } else {
         this.memory.working = !this.memory.working;
     }
@@ -64,8 +68,9 @@ Creep.prototype.findContainerSource = function findContainerSource() {
     let structures = this.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
             return (structure.structureType == STRUCTURE_CONTAINER &&
-                    structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
-        }});
+                structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
+        }
+    });
     if (structures.length) {
         this.memory.source = structures[0].id;
         return structures[0];
@@ -75,18 +80,22 @@ Creep.prototype.findContainerSource = function findContainerSource() {
 // get energy from a container
 Creep.prototype.harvestContainer = function harvestContainer() {
     let storedSource = Game.getObjectById(this.memory.source);
-    if(!storedSource || !this.pos.isNearTo(storedSource)) {
+    if (!storedSource || !this.pos.isNearTo(storedSource)) {
         delete this.memory.source;
         storedSource = this.findContainerSource();
     }
     if (storedSource) {
-        if(this.pos.isNearTo(storedSource)) {
-            if(this.withdraw(storedSource, RESOURCE_ENERGY) == -6) {
+        if (this.pos.isNearTo(storedSource)) {
+            if (this.withdraw(storedSource, RESOURCE_ENERGY) == -6) {
                 delete this.memory.source;
             };
-            
+
         } else {
-            this.moveTo(storedSource), {visualizePathStyle: {stroke: '#ffaa00'}};
+            this.moveTo(storedSource), {
+                visualizePathStyle: {
+                    stroke: '#ffaa00'
+                }
+            };
         }
     }
 };
@@ -96,8 +105,9 @@ Creep.prototype.findStorageSource = function findStorageSource() {
     let structures = this.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
             return (structure.structureType == STRUCTURE_STORAGE &&
-                    structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
-        }});
+                structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
+        }
+    });
     if (structures.length) {
         // console.log(structures);
         this.memory.source = structures[0].id;
@@ -108,18 +118,22 @@ Creep.prototype.findStorageSource = function findStorageSource() {
 // get energy from storage
 Creep.prototype.harvestStorage = function harvestStorage() {
     let storedSource = Game.getObjectById(this.memory.source);
-    if(!storedSource || !this.pos.isNearTo(storedSource)) {
+    if (!storedSource || !this.pos.isNearTo(storedSource)) {
         delete this.memory.source;
         storedSource = this.findStorageSource();
     }
     if (storedSource) {
-        if(this.pos.isNearTo(storedSource)) {
+        if (this.pos.isNearTo(storedSource)) {
             this.withdraw(storedSource, RESOURCE_ENERGY);
-            if(storedSource.store.getUsedCapacity(RESOURCE_ENERGY)) {
+            if (storedSource.store.getUsedCapacity(RESOURCE_ENERGY)) {
                 delete this.memory.source
             }
         } else {
-            this.moveTo(storedSource), {visualizePathStyle: {stroke: '#ffaa00'}};
+            this.moveTo(storedSource), {
+                visualizePathStyle: {
+                    stroke: '#ffaa00'
+                }
+            };
         }
     }
 };
@@ -129,12 +143,12 @@ Creep.prototype.harvestStorage = function harvestStorage() {
 Creep.prototype.dropOffEnergy = function dropOffEnergy() {
 
     // Do we have any extra energy
-    if(!this.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
+    if (!this.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
         // No Energy Lets Bail Out
         return;
     }
 
-    switch(this.room.memory.config.storage) {
+    switch (this.room.memory.config.storage) {
         case "none":
             // No where to drop off
             break;
@@ -148,11 +162,15 @@ Creep.prototype.dropOffEnergy = function dropOffEnergy() {
             break;
     };
 
-    if(target) {
-        if(this.pos.isNearTo(target)) {
+    if (target) {
+        if (this.pos.isNearTo(target)) {
             this.transfer(target, RESOURCE_ENERGY);
         } else {
-            this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+            this.moveTo(target, {
+                visualizePathStyle: {
+                    stroke: '#ffffff'
+                }
+            });
         }
     }
 

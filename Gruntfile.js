@@ -1,10 +1,6 @@
-let matchdep = require('matchdep');
-let mergeFiles = require('./grunt-scripts/mergeFiles');
 
 module.exports = function(grunt) {
   require('time-grunt')(grunt);
-  matchdep.filterAll(['grunt-*', '!grunt-cli']).forEach(grunt.loadNpmTasks);
-  mergeFiles(grunt);
 
   var config = require('./.screeps.json')
 
@@ -49,10 +45,10 @@ module.exports = function(grunt) {
               src: '**',
               dest: 'dist/',
               filter: 'isFile',
-              rename: function (dest, src) {
-                // Change the path name utilize underscores for folders
-                return dest + src.replace(/\//g,'_');
-              }
+              // rename: function (dest, src) {
+              //   // Change the path name utilize underscores for folders
+              //   return dest + src.replace(/\//g,'_');
+              // }
             }],
           }
       },
@@ -72,10 +68,9 @@ module.exports = function(grunt) {
       },
   })
 
-    grunt.registerTask('default',  ['test', 'screeps']);
-    grunt.registerTask('noTest',   ['screeps']);
+    grunt.registerTask('default',  ['clean', 'copy:screeps', 'screeps']);
+    grunt.registerTask('noTest',   ['copy:screeps', 'screeps']);
     grunt.registerTask('test',     ['jsbeautifier:verify']);
     grunt.registerTask('pretty',   ['jsbeautifier:modify']);
-    grunt.registerTask('merge',    ['clean', 'mergeFiles']);
-    grunt.registerTask('copy',     ['clean', 'copy:screeps', 'screeps']);
+    // grunt.registerTask('copy',     ['clean', 'copy:screeps', 'screeps']);
 }

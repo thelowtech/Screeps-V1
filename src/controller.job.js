@@ -12,10 +12,10 @@ var jobController = {
     run: function(room) {
         // Grab a creep and run its Job
         console.log['jobController']
-        for(var name in Memory.creeps) {
+        for (var name in Memory.creeps) {
             let creep = Game.creeps[name];
             console.log[name]
-            if(!creep) {
+            if (!creep) {
                 console.log('Clearing non-existing creep memory:', name);
                 delete Memory.creeps[name];
             } else {
