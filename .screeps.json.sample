@@ -1,0 +1,8 @@
+{
+    "userName": "USERNAME",
+    "password": "PASSWORD",
+    "branch": "default",
+    "ptr": false,
+    "host": "SITE_ADDRESS",
+    "port": 21025
+  }
