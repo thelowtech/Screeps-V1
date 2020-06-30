@@ -31,12 +31,12 @@ var roleHarvest = {
                 }
 
             });
-            if (creep.memory.working && sources.length) {
+            if (sources.length) {
                 target = creep.pos.findClosestByRange(sources)
                 creep.memory.target = target.id;
             } else {
                 // no where to store the energy
-                return;
+                // return;
             }
         }
 
