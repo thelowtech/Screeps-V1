@@ -72,8 +72,8 @@ module.exports = function(grunt) {
       },
   })
 
-    grunt.registerTask('default',  ['test','clean', 'mergeFiles', 'screeps']);
-    grunt.registerTask('noTest',   ['clean', 'mergeFiles', 'screeps']);
+    grunt.registerTask('default',  ['test', 'screeps']);
+    grunt.registerTask('noTest',   ['screeps']);
     grunt.registerTask('test',     ['jsbeautifier:verify']);
     grunt.registerTask('pretty',   ['jsbeautifier:modify']);
     grunt.registerTask('merge',    ['clean', 'mergeFiles']);
