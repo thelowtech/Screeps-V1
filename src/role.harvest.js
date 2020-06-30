@@ -31,9 +31,9 @@ var roleHarvest = {
                 }
 
             });
-            if (sources.length) {
-                target = sources[0];
-                creep.memory.target = sources[0].id;
+            if (creep.memory.working && sources.length) {
+                target = creep.pos.findClosestByRange(sources)
+                creep.memory.target = target.id;
             } else {
                 // no where to store the energy
                 return;

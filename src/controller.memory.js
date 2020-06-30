@@ -77,7 +77,7 @@ function checkStorage(room) {
         room.memory.config.storage = 'container'
         return;
     }
-    room.memory.config,storage = 'none';
+    room.memory.config.storage = 'none';
 }
 
 module.exports = memoryController;

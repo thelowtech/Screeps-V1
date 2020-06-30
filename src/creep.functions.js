@@ -45,6 +45,7 @@ Creep.prototype.harvestEnergy = function harvestEnergy() {
         delete this.memory.source;
         storedSource = this.findEnergySource();
     }
+
     if (storedSource) {
         if (this.pos.isNearTo(storedSource)) {
             this.harvest(storedSource);
