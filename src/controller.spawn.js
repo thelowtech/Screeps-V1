@@ -17,38 +17,41 @@ var spawnController = {
 
         // Get minimum number of creeps per job
         let minNumberOfTransport = _.get(room.memory, ['census', 'transport'], 1);
-        let minNumberOfHarvest = _.get(room.memory, ['census', 'harvest'], 1);
+        let minNumberOfCarpenter = _.get(room.memory, ['census', 'carpenter'], 1);
+        let minNumberOfFarmer = _.get(room.memory, ['census', 'farmer'], 1);
         let minNumberOfUpgrade = _.get(room.memory, ['census', 'upgrade'], 1);
         let minNumberOfRepair = _.get(room.memory, ['census', 'repair'], 1);
-        let minNumberOfBuild = _.get(room.memory, ['census', 'build'], 1);
         let minNumberOfMine = _.get(room.memory, ['census', 'mine'], 1);
         let minNumberOfWall = _.get(room.memory, ['census', 'wall'], 1);
 
         // Check how many creeps of each role we have
         var numberOfTransport = _.sum(Game.creeps, (creep) => creep.memory.role == 'transport');
-        var numberOfHarvest = _.sum(Game.creeps, (creep) => creep.memory.role == 'harvest');
+        var numberOfCarpenter = _.sum(Game.creeps, (creep) => creep.memory.role == 'carpenter');
+        var numberOfFarmer = _.sum(Game.creeps, (creep) => creep.memory.role == 'farmer');
         var numberOfUpgrade = _.sum(Game.creeps, (creep) => creep.memory.role == 'upgrade');
         var numberOfRepair = _.sum(Game.creeps, (creep) => creep.memory.role == 'repair');
-        var numberOfBuild = _.sum(Game.creeps, (creep) => creep.memory.role == 'build');
         var numberOfMine = _.sum(Game.creeps, (creep) => creep.memory.role == 'mine');
         var numberOfWall = _.sum(Game.creeps, (creep) => creep.memory.role == 'wall');
 
         // Check to see if we need more creeps of each job
         var name = -1;
-        if (!numberOfHarvest && (!numberOfMine || !numberOfTransport)) {
+        if (!numberOfFarmer && (!numberOfMine || !numberOfTransport)) {
             name = Game.spawns.Spawn1.createCreep([WORK, CARRY, MOVE], undefined, {
-                role: 'harvest',
+                role: 'farmer',
                 working: false,
                 target: undefined
             });
         }
 
-        if (name == -1 && numberOfHarvest < minNumberOfHarvest) {
+        if (name == -1 && numberOfFarmer < minNumberOfFarmer) {
             name = Game.spawns.Spawn1.createCreep(getBody([WORK, CARRY, MOVE], room), undefined, {
-                role: 'harvest',
+                role: 'farmer',
                 working: false,
                 target: undefined
             });
+            // if(false){
+            //     // pass
+
         } else if (name == -1 && numberOfMine < minNumberOfMine) {
             name = Game.spawns.Spawn1.createCreep(getBody([WORK, CARRY, MOVE], room), undefined, {
                 role: 'mine',
@@ -67,9 +70,9 @@ var spawnController = {
                 working: false,
                 target: undefined
             });
-        } else if (name == -1 && numberOfBuild < minNumberOfBuild && room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+        } else if (name == -1 && numberOfCarpenter < minNumberOfCarpenter && room.find(FIND_CONSTRUCTION_SITES).length > 0) {
             name = Game.spawns.Spawn1.createCreep(getBody([WORK, CARRY, MOVE], room), undefined, {
-                role: 'build',
+                role: 'carpenter',
                 working: false,
                 target: undefined
             });

@@ -1,4 +1,4 @@
-var roleHarvest = {
+var roleFarmer = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -54,7 +54,16 @@ var roleHarvest = {
         } else {
             creep.harvestEnergy();
         }
+    },
+
+    spawn: function(room) {
+        var farmers = _.filter(Game.creeps, (creep) => creep.memory.role == 'farmer' && creep.room.name == room.name);
+        // console.log('Farmers: ' + farmers.length, room.name);
+
+        if (farmers.length < room.memory.census.farmer) {
+            return true;
+        }
     }
 };
 
-module.exports = roleHarvest;
+module.exports = roleFarmer;

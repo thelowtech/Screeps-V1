@@ -12,16 +12,16 @@ var memoryController = {
             room.memory.census = {};
         }
 
-        if (room.memory.census.harvest == undefined) {
-            room.memory.census.harvest = 2;
+        if (room.memory.census.farmer == undefined) {
+            room.memory.census.farmer = 2;
         }
 
         if (room.memory.census.upgrade == undefined) {
             room.memory.census.upgrade = 2;
         }
 
-        if (room.memory.census.build == undefined) {
-            room.memory.census.build = 1;
+        if (room.memory.census.carpenter == undefined) {
+            room.memory.census.carpenter = 1;
         }
 
         if (room.memory.census.repair == undefined) {

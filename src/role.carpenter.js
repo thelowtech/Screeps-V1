@@ -1,4 +1,4 @@
-var roleBuild = {
+var roleCarpenter = {
 
     /** @param {Creep} creep  **/
     run: function(creep) {
@@ -49,4 +49,4 @@ var roleBuild = {
     }
 };
 
-module.exports = roleBuild;
+module.exports = roleCarpenter;

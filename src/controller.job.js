@@ -1,9 +1,9 @@
 global.ROLES = {
     transport: require('role.transport'),
-    harvest: require('role.harvest'),
+    carpenter: require('role.carpenter'),
     upgrade: require('role.upgrade'),
+    farmer: require('role.farmer'),
     repair: require('role.repair'),
-    build: require('role.build'),
     mine: require('role.mine'),
     wall: require('role.wall'),
 }

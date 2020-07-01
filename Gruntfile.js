@@ -65,12 +65,13 @@ module.exports = function(grunt) {
               mode: 'VERIFY_ONLY'
             }
           }
-      },
+      }
   })
 
-    grunt.registerTask('default',  ['clean', 'copy:screeps', 'screeps']);
-    grunt.registerTask('noTest',   ['copy:screeps', 'screeps']);
-    grunt.registerTask('test',     ['jsbeautifier:verify']);
-    grunt.registerTask('pretty',   ['jsbeautifier:modify']);
-    // grunt.registerTask('copy',     ['clean', 'copy:screeps', 'screeps']);
+    grunt.registerTask('default',       ['jsbeautifier:verify', 'clean', 'copy:screeps', 'screeps']);
+    grunt.registerTask('uploadPretty',  ['jsbeautifier:modify', 'clean', 'copy:screeps', 'screeps']);
+    grunt.registerTask('noTest',        ['clean', 'copy:screeps', 'screeps']);
+    grunt.registerTask('test',          ['jsbeautifier:verify']);
+    grunt.registerTask('pretty',        ['jsbeautifier:modify']);
+    grunt.registerTask('copyOnly',          ['clean', 'copy:screeps']);
 }
