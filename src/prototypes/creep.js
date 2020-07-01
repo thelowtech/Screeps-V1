@@ -152,6 +152,7 @@ Creep.prototype.dropOffEnergy = function dropOffEnergy() {
     switch (this.room.memory.config.storage) {
         case "none":
             // No where to drop off
+            target = false;
             break;
         case "container":
             // drop in a container
