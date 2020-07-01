@@ -35,8 +35,8 @@ var memoryController = {
         if (room.memory.census.transport == undefined) {
             room.memory.census.transport = 0;
         }
-        if (room.memory.census.wall == undefined) {
-            room.memory.census.wall = 0;
+        if (room.memory.census.mason == undefined) {
+            room.memory.census.mason = 0;
         }
 
         // Config Setup

@@ -5,7 +5,7 @@ global.ROLES = {
     farmer: require('role.farmer'),
     repair: require('role.repair'),
     mine: require('role.mine'),
-    wall: require('role.wall'),
+    mason: require('role.mason'),
 }
 
 var jobController = {

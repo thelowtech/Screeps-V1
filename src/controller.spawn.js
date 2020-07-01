@@ -22,7 +22,7 @@ var spawnController = {
         let minNumberOfUpgrade = _.get(room.memory, ['census', 'upgrade'], 1);
         let minNumberOfRepair = _.get(room.memory, ['census', 'repair'], 1);
         let minNumberOfMine = _.get(room.memory, ['census', 'mine'], 1);
-        let minNumberOfWall = _.get(room.memory, ['census', 'wall'], 1);
+        let minNumberOfMason = _.get(room.memory, ['census', 'mason'], 1);
 
         // Check how many creeps of each role we have
         var numberOfTransport = _.sum(Game.creeps, (creep) => creep.memory.role == 'transport');
@@ -31,7 +31,7 @@ var spawnController = {
         var numberOfUpgrade = _.sum(Game.creeps, (creep) => creep.memory.role == 'upgrade');
         var numberOfRepair = _.sum(Game.creeps, (creep) => creep.memory.role == 'repair');
         var numberOfMine = _.sum(Game.creeps, (creep) => creep.memory.role == 'mine');
-        var numberOfWall = _.sum(Game.creeps, (creep) => creep.memory.role == 'wall');
+        var numberOfMason = _.sum(Game.creeps, (creep) => creep.memory.role == 'mason');
 
         // Check to see if we need more creeps of each job
         var name = -1;
@@ -82,9 +82,9 @@ var spawnController = {
                 working: false,
                 target: undefined
             });
-        } else if (name == -1 && numberOfWall < minNumberOfWall) {
+        } else if (name == -1 && numberOfMason < minNumberOfMason) {
             name = Game.spawns.Spawn1.createCreep(getBody([WORK, CARRY, MOVE], room), undefined, {
-                role: 'wall',
+                role: 'mason',
                 working: false,
                 target: undefined
             });
