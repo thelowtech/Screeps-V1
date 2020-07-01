@@ -1,4 +1,4 @@
-var roleRepair = {
+var roleMaintenance = {
 
     /** @param {Creep} creep  **/
     run: function(creep) {
@@ -59,13 +59,28 @@ var roleRepair = {
     },
 
     spawn: function(room) {
-        // do we need a Repair
-        return false;
+        // do we need maintenance
+        var spawnCheck = _.filter(Game.creeps, (creep) => creep.memory.role == 'maintenance' && creep.room.name == room.name);
+
+        if (spawnCheck.length < room.memory.census.maintenance) {
+            return true;
+        }
     },
 
     spawnData: function(room) {
-        // this is how we spawn a Repairer
+        // this is how we spawn maintenance
+        let name = 'maintenance' + Game.time;
+        let body = [WORK, CARRY, MOVE];
+        let memory = {
+            role: 'maintenance'
+        };
+
+        return {
+            name,
+            body,
+            memory
+        };
     }
 };
 
-module.exports = roleRepair;
+module.exports = roleMaintenance;

@@ -1,4 +1,4 @@
-var roleMine = {
+var roleMiner = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -54,11 +54,27 @@ var roleMine = {
 
     spawn: function(room) {
         // do we need a Miner
-        return false;
+        var spawnCheck = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.room.name == room.name);
+
+        if (spawnCheck.length < room.memory.census.miner) {
+            return true;
+        }
     },
 
     spawnData: function(room) {
         // this is how we spawn a Miner
+        // this is how we spawn an upgrader
+        let name = 'miner' + Game.time;
+        let body = [WORK, CARRY, MOVE];
+        let memory = {
+            role: 'miner'
+        };
+
+        return {
+            name,
+            body,
+            memory
+        };
     }
 };
 
@@ -99,4 +115,4 @@ function getStorage(creep) {
     }
 };
 
-module.exports = roleMine;
+module.exports = roleMiner;

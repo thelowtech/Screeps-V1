@@ -1,4 +1,4 @@
-var roleUpgrade = {
+var roleEngineer = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -28,21 +28,21 @@ var roleUpgrade = {
     },
 
     spawn: function(room) {
-        // do we need a upgrader
-        var spawnCheck = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrade' && creep.room.name == room.name);
+        // do we need an engineer
+        var spawnCheck = _.filter(Game.creeps, (creep) => creep.memory.role == 'engineer' && creep.room.name == room.name);
         // console.log('Farmers: ' + farmers.length, room.name);
 
-        if (spawnCheck.length < room.memory.census.upgrade) {
+        if (spawnCheck.length < room.memory.census.engineer) {
             return true;
         }
     },
 
     spawnData: function(room) {
-        // this is how we spawn an upgrader
-        let name = 'Upgrader' + Game.time;
+        // this is how we spawn an Engineer
+        let name = 'Engineer' + Game.time;
         let body = [WORK, CARRY, MOVE];
         let memory = {
-            role: 'upgrade'
+            role: 'engineer'
         };
 
         return {
@@ -53,4 +53,4 @@ var roleUpgrade = {
     }
 };
 
-module.exports = roleUpgrade;
+module.exports = roleEngineer;

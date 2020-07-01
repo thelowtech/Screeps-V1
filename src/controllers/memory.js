@@ -16,25 +16,26 @@ var memoryController = {
             room.memory.census.farmer = 2;
         }
 
-        if (room.memory.census.upgrade == undefined) {
-            room.memory.census.upgrade = 2;
+        if (room.memory.census.engineer == undefined) {
+            room.memory.census.engineer = 2;
         }
 
         if (room.memory.census.carpenter == undefined) {
             room.memory.census.carpenter = 1;
         }
 
-        if (room.memory.census.repair == undefined) {
-            room.memory.census.repair = 0;
+        if (room.memory.census.maintenance == undefined) {
+            room.memory.census.maintenance = 0;
         }
 
-        if (room.memory.census.mine == undefined) {
-            room.memory.census.mine = 0;
+        if (room.memory.census.miner == undefined) {
+            room.memory.census.miner = 0;
         }
 
-        if (room.memory.census.transport == undefined) {
-            room.memory.census.transport = 0;
+        if (room.memory.census.transporter == undefined) {
+            room.memory.census.transporter = 0;
         }
+
         if (room.memory.census.mason == undefined) {
             room.memory.census.mason = 0;
         }

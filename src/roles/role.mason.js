@@ -59,11 +59,33 @@ var roleMason = {
 
     spawn: function(room) {
         // do we need a Mason
-        return false;
+        var spawnCheck = _.filter(Game.creeps, (creep) => creep.memory.role == 'mason' && creep.room.name == room.name);
+        // console.log('Farmers: ' + farmers.length, room.name);
+        var sources = room.find(FIND_STRUCTURES, {
+            filter: (structure) => {
+                return (structure.structureType == STRUCTURE_WALL &&
+                    structure.hits < structure.hitsMax * room.memory.config.wallTargetSize)
+            }
+        });
+
+        if (spawnCheck.length < room.memory.census.mason && sources.length) {
+            return true;
+        }
     },
 
     spawnData: function(room) {
         // this is how we spawn a Mason
+        let name = 'Mason' + Game.time;
+        let body = [WORK, CARRY, MOVE];
+        let memory = {
+            role: 'mason'
+        };
+
+        return {
+            name,
+            body,
+            memory
+        };
     }
 };
 

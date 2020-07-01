@@ -1,4 +1,4 @@
-var roleTransport = {
+var roleTransporter = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -72,12 +72,27 @@ var roleTransport = {
 
     spawn: function(room) {
         // do we need a transporter
-        return false;
+        var spawnCheck = _.filter(Game.creeps, (creep) => creep.memory.role == 'transporter' && creep.room.name == room.name);
+
+        if (spawnCheck.length < room.memory.census.transporter) {
+            return true;
+        }
     },
 
     spawnData: function(room) {
         // this is how we spawn a transporter
+        let name = 'Transporter' + Game.time;
+        let body = [CARRY, CARRY, MOVE];
+        let memory = {
+            role: 'transporter'
+        };
+
+        return {
+            name,
+            body,
+            memory
+        };
     }
 };
 
-module.exports = roleTransport;
+module.exports = roleTransporter;

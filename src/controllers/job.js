@@ -5,7 +5,6 @@ var jobController = {
         // Grab a creep and run its Job
         for (var name in Memory.creeps) {
             let creep = Game.creeps[name];
-            console.log[name]
             if (!creep) {
                 console.log('Clearing non-existing creep memory:', name);
                 delete Memory.creeps[name];
@@ -14,7 +13,6 @@ var jobController = {
             }
         }
     }
-
 };
 
 module.exports = jobController;
