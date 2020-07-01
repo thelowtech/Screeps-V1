@@ -50,6 +50,15 @@ var roleMine = {
         } else {
             creep.harvestEnergy();
         }
+    },
+
+    spawn: function(room) {
+        // do we need a Miner
+        return false;
+    },
+
+    spawnData: function(room) {
+        // this is how we spawn a Miner
     }
 };
 

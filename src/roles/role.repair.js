@@ -56,6 +56,15 @@ var roleRepair = {
         } else {
             creep.collectEnergy();
         }
+    },
+
+    spawn: function(room) {
+        // do we need a Repair
+        return false;
+    },
+
+    spawnData: function(room) {
+        // this is how we spawn a Repairer
     }
 };
 

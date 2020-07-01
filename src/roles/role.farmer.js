@@ -57,10 +57,10 @@ var roleFarmer = {
     },
 
     spawn: function(room) {
-        var farmers = _.filter(Game.creeps, (creep) => creep.memory.role == 'farmer' && creep.room.name == room.name);
+        var spawnCheck = _.filter(Game.creeps, (creep) => creep.memory.role == 'farmer' && creep.room.name == room.name);
         // console.log('Farmers: ' + farmers.length, room.name);
 
-        if (farmers.length < room.memory.census.farmer) {
+        if (spawnCheck.length < room.memory.census.farmer) {
             return true;
         }
     },

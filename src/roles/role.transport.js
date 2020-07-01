@@ -68,6 +68,15 @@ var roleTransport = {
         } else {
             creep.collectEnergy();
         }
+    },
+
+    spawn: function(room) {
+        // do we need a transporter
+        return false;
+    },
+
+    spawnData: function(room) {
+        // this is how we spawn a transporter
     }
 };
 
