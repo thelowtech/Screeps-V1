@@ -63,6 +63,20 @@ var roleFarmer = {
         if (farmers.length < room.memory.census.farmer) {
             return true;
         }
+    },
+
+    spawnData: function(room) {
+        let name = 'Farmer' + Game.time;
+        let body = [WORK, CARRY, MOVE];
+        let memory = {
+            role: 'farmer'
+        };
+
+        return {
+            name,
+            body,
+            memory
+        };
     }
 };
 

@@ -1,17 +1,8 @@
-global.ROLES = {
-    transport: require('role.transport'),
-    carpenter: require('role.carpenter'),
-    upgrade: require('role.upgrade'),
-    farmer: require('role.farmer'),
-    repair: require('role.repair'),
-    mine: require('role.mine'),
-    mason: require('role.mason'),
-}
+let creepRoles = require('roles_index')
 
 var jobController = {
     run: function(room) {
         // Grab a creep and run its Job
-        console.log['jobController']
         for (var name in Memory.creeps) {
             let creep = Game.creeps[name];
             console.log[name]
@@ -19,7 +10,7 @@ var jobController = {
                 console.log('Clearing non-existing creep memory:', name);
                 delete Memory.creeps[name];
             } else {
-                ROLES[creep.memory.role].run(creep);
+                creepRoles[creep.memory.role].run(creep);
             }
         }
     }

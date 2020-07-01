@@ -1,8 +1,4 @@
-const {
-    forEach
-} = require("lodash");
-
-var defenseTower = {
+var defenseController = {
 
     run: function(room) {
         // find all the towers in the room
@@ -13,7 +9,7 @@ var defenseTower = {
 
         });
 
-        _, forEach(towers, function(tower) {
+        _.forEach(towers, function(tower) {
             if (tower) {
                 // find all structures that need repair
                 var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
@@ -38,4 +34,4 @@ var defenseTower = {
     }
 };
 
-module.exports = defenseTower;
+module.exports = defenseController;

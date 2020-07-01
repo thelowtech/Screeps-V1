@@ -1,7 +1,7 @@
-var memoryController = require('controller.memory');
-var spawnController = require('controller.spawn');
-var jobController = require('controller.job')
-var defenseTower = require('room.defense');
+var memoryController = require('controllers_memory');
+var spawnController = require('controllers_spawn');
+var jobController = require('controllers_job')
+var defenseController = require('controllers_defense');
 
 var roomController = {
 
@@ -13,7 +13,7 @@ var roomController = {
         }
         spawnController.run(room);
         jobController.run(room);
-        defenseTower.run(room);
+        defenseController.run(room);
     }
 };
 

@@ -1,6 +1,5 @@
-var creepFunctions = require('creep.functions');
-var roomPositionFunctions = require('roomPosition.functions');
-var roomController = require('controller.room');
+let prototypes = require('prototypes_index');
+var roomController = require('controllers_room');
 
 module.exports.loop = function() {
 
