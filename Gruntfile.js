@@ -33,7 +33,8 @@ module.exports = function(grunt) {
       },
 
       clean: {
-          'dist': ['dist']
+          'dist': ['dist'],
+          'steam': [config.gamePath]
       },
 
       copy: {
@@ -50,6 +51,19 @@ module.exports = function(grunt) {
                 return dest + src.replace(/\//g,'_');
               }
             }],
+            steam: {
+              files: [{
+                expand: true,
+                cwd: 'src/',
+                src: '**',
+                dest: config.gamePath,
+                filter: 'isFile',
+                rename: function (dest, src) {
+                  // Change the path name utilize underscores for folders
+                  return dest + src.replace(/\//g,'_');
+                }
+              }],
+            }
           }
       },
 
@@ -66,12 +80,19 @@ module.exports = function(grunt) {
             }
           }
       }
+
   })
 
-    grunt.registerTask('default',       ['jsbeautifier:verify', 'clean', 'copy:screeps', 'screeps']);
-    grunt.registerTask('uploadPretty',  ['jsbeautifier:modify', 'clean', 'copy:screeps', 'screeps']);
+    grunt.registerTask('default',       ['jsbeautifier:verify', 'clean:dist', 'copy:screeps', 'screeps']);
+    grunt.registerTask('uploadPretty',  ['jsbeautifier:modify', 'clean:dist', 'copy:screeps', 'screeps']);
     grunt.registerTask('noTest',        ['clean', 'copy:screeps', 'screeps']);
+    grunt.registerTask('copyOnly',      ['clean', 'copy:screeps']);
+
+    grunt.registerTask('steam',         ['jsbeautifier:verify', 'clean:steam', 'copy:steam']);
+    grunt.registerTask('steamPretty',   ['jsbeautifier:modify', 'clean:steam', 'copy:steam']);
+    grunt.registerTask('steamNoTest',   ['clean:steam', 'copy:steam']);
+    
     grunt.registerTask('test',          ['jsbeautifier:verify']);
     grunt.registerTask('pretty',        ['jsbeautifier:modify']);
-    grunt.registerTask('copyOnly',          ['clean', 'copy:screeps']);
+    
 }
